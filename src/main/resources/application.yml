@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /kafkatester
+
+kafka:
+  producer:
+    topics:
+      - test-topic-1
+      - test-topic-2
+    properties:
+      client.id: testerkafka
+      bootstrap.servers: ip-10-0-1-199.eu-west-2.compute.internal:9092,ip-10-0-1-202.eu-west-2.compute.internal:9092,ip-10-0-6-76.eu-west-2.compute.internal:9092
+      key.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      value.serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      schema.registry.url:  http://ip-10-0-1-223.eu-west-2.compute.internal:8081
+      interceptor.classes: io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+      acks: 0
+      retries: 10
+
+
