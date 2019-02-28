@@ -36,11 +36,11 @@ public class KafkaTestProducer {
     }
 
     public void produceRecord(SampleMessage message) {
-        val rc = new GenericData.Record(this.schema);
-        rc.put("timeStamp", message.getTimeStamp());
-        rc.put("message", message.getMessage());
         for (String topic : this.kafkaProducerProperties.getTopics()) {
-            LOG.info("producing to toipc " + topic);
+            val rc = new GenericData.Record(this.schema);
+            rc.put("timeStamp", message.getTimeStamp());
+            rc.put("message", message.getMessage() + "  -> " + topic);
+            LOG.info("producing to topic " + topic);
             ProducerRecord<String, GenericRecord> producerRecord = new ProducerRecord<>(topic, message.getTimeStamp(), rc);
             try {
                 this.producer.send(producerRecord, new KafkaTestProducerCallback());
